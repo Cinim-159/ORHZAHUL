@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cinim Narin — Diário de Lore</title>
+  <title>Cinim Narin — Diário</title>
   <meta name="description" content="Diário de escrita diária da lore do personagem Cinim Narin." />
   <style>
     :root{
@@ -52,28 +52,15 @@
         id: "pagina-002",
         title: "Página 2",
         date: "2025-08-29",
-        content: `<p>Os QUEM SANGRA? A MEMORIA.
+        content: `<p>QUEM SANGRA? A MEMORIA.
 O QUE RETORNA? A ALMA.
 QUEM CALA? O SILENCIO ETERNO..</p>
-<pre><button class="copy-btn">Copiar</button><code>VOX SILENS INTRA ME</code></pre>`
+<pre><button class="copy-btn">Copiar</button><code>Pondus Intra Me</code></pre>`
       }
     ];
 
     function fmtDate(iso){
       return new Date(iso+"T00:00:00").toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
-    }
-
-    function enhanceCode(root){
-      const buttons = root.querySelectorAll('.copy-btn');
-      buttons.forEach(btn=>{
-        btn.onclick = ()=>{
-          const txt = btn.nextElementSibling.textContent;
-          navigator.clipboard.writeText(txt).then(()=>{
-            btn.textContent = 'Copiado!';
-            setTimeout(()=>btn.textContent='Copiar',1200);
-          });
-        };
-      });
     }
 
     function renderFeed(){
