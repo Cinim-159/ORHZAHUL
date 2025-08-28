@@ -14,10 +14,10 @@ body{margin:0;background:linear-gradient(180deg,var(--bg),#090a0f);color:var(--i
 .container{max-width:900px;margin:0 auto;padding:20px}
 header{position:sticky;top:0;background:rgba(11,12,16,.7);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid #141827;padding:14px 0;text-align:center;font-weight:700;font-size:18px;}
 .layout{margin-top:20px;}
-.post{background:var(--panel);padding:18px;margin-bottom:18px;border-radius:16px;border:1px solid #151a2a;box-shadow:0 8px 20px #0006;}
+.post{background:var(--panel);padding:18px;margin-bottom:18px;border-radius:16px;border:1px solid #151a2a;box-shadow:0 8px 20px #0006;cursor:pointer;}
 .post h2{margin-top:0;font-size:22px}
 .post .date{color:var(--ink-dim);font-size:13px;margin-bottom:12px}
-.post .content{line-height:1.7;color:#d7dcea;white-space:pre-wrap;}
+.post .content{line-height:1.7;color:#d7dcea;display:none;white-space:pre-wrap;}
 footer{opacity:.7;text-align:center;padding:30px 0;margin-top:40px}
 </style>
 </head>
@@ -33,15 +33,10 @@ Cinim Narin — Diário de Lore
 </footer>
 
 <script>
-// === CONFIGURAÇÃO DE PÁGINAS ===
 const POSTS = [
   {id:"pagina-001",title:"Página 1",date:"2025-08-28",content:"Hoje começa o diário da trilha de Cinim Narin. Cada página será um fragmento da história."},
   {id:"pagina-002",title:"Página 2",date:"2025-08-29",content:"QUEM SANGRA? A MEMORIA.\nO QUE RETORNA? A ALMA.\nQUEM CALA? O SILÊNCIO ETERNO."},
-  {id:"pagina-003",title:"Página 3",date:"2025-08-30",content:"O olho amarelo observa, mas nem tudo se revela. A escuridão guarda segredos."},
-  {id:"pagina-004",title:"Página 4",date:"2025-08-31",content:"Caminhar pela trilha da Ignorância significa escolher o que não se deseja ver."},
-  {id:"pagina-005",title:"Página 5",date:"2025-09-01",content:"Fragmentos do passado surgem e desaparecem, deixando apenas ecos de lembranças."},
-  {id:"pagina-006",title:"Página 6",date:"2025-09-02",content:"As sombras falam, mas só para aqueles que querem escutar."},
-  {id:"pagina-007",title:"Página 7",date:"2025-09-03",content:"Cada enigma é um passo, cada página é um pedaço do todo que se revela lentamente."}
+  {id:"pagina-003",title:"Página 3",date:"2025-08-30",content:"O olho amarelo observa, mas nem tudo se revela. A escuridão guarda segredos."}
 ];
 
 function fmtDate(iso){
@@ -55,6 +50,10 @@ function renderFeed(){
     const div = document.createElement('div');
     div.className='post';
     div.innerHTML = `<h2>${p.title}</h2><div class="date">${fmtDate(p.date)}</div><div class="content">${p.content}</div>`;
+    div.addEventListener('click', ()=>{
+      const content = div.querySelector('.content');
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
     feed.appendChild(div);
   });
 }
