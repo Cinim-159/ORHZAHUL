@@ -9,22 +9,47 @@
   --bg:#0b0c10;--panel:#0f1117;--ink:#e6e6e6;--ink-dim:#adb5bd;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:linear-gradient(180deg,var(--bg),#090a0f);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;}
-.container{max-width:900px;margin:0 auto;padding:20px}
-header{position:sticky;top:0;background:rgba(11,12,16,.7);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid #141827;padding:14px 0;text-align:center;font-weight:700;font-size:18px;}
+html,body{height:100%;margin:0;display:flex;flex-direction:column;}
+body{background:linear-gradient(180deg,var(--bg),#090a0f);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;}
+.container{max-width:900px;margin:0 auto;padding:20px;flex:1;}
+header{position:sticky;top:0;background:rgba(11,12,16,.7);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid #141827;padding:14px 0;text-align:center;font-weight:700;font-size:18px;z-index:10;}
 .layout{margin-top:20px;}
-.post{background:var(--panel);padding:18px;margin-bottom:18px;border-radius:16px;border:1px solid #151a2a;box-shadow:0 8px 20px #0006;cursor:pointer;overflow:hidden;}
+.post{
+  background:var(--panel);
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:16px;
+  border:1px solid #151a2a;
+  box-shadow:0 8px 20px #0006;
+  cursor:pointer;
+  overflow:hidden;
+  transition: transform 0.5s ease, max-height 0.5s ease, padding 0.3s ease;
+  transform-origin: top left;
+}
 .post h2{margin-top:0;font-size:22px}
 .post .date{color:var(--ink-dim);font-size:13px;margin-bottom:12px}
-.post .content{line-height:1.7;color:#d7dcea;max-height:0;overflow:hidden;transition: max-height 0.5s ease, padding 0.3s ease;}
-.post.open .content{max-height:500px; padding-top:10px;}
-footer{opacity:.7;text-align:center;padding:30px 0;margin-top:40px}
+.post .content{
+  line-height:1.7;color:#d7dcea;
+  max-height:0;
+  overflow:hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  opacity:0;
+  white-space:pre-wrap;
+}
+.post.open{
+  transform: scale(1.05); /* aumenta levemente largura e altura */
+}
+.post.open .content{
+  max-height:500px;
+  opacity:1;
+  padding-top:10px;
+}
+footer{opacity:0.7;text-align:center;padding:30px 0;}
 </style>
 </head>
 <body>
 <header>
-Cinim Narin — Diário
+Cinim Narin — Diário de Lore
 </header>
 
 <main class="container layout" id="feed"></main>
@@ -52,7 +77,7 @@ function renderFeed(){
     div.className='post';
     div.innerHTML = `<h2>${p.title}</h2><div class="date">${fmtDate(p.date)}</div><div class="content">${p.content}</div>`;
     div.addEventListener('click', ()=>{
-      div.classList.toggle('open'); // adiciona/remove classe que ativa a animação
+      div.classList.toggle('open');
     });
     feed.appendChild(div);
   });
